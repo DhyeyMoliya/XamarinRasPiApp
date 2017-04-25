@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinRasPiApp.SensorsPage"  
+             BackgroundColor="#31415b"
+             Padding="20">
+    <StackLayout
+        VerticalOptions="Center"
+        HorizontalOptions="FillAndExpand">
+        <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="Fill"
+            Margin="0, 0, 0, 20">
+
+            <StackLayout
+                Orientation="Vertical"
+                HorizontalOptions="FillAndExpand">
+                <Label 
+                    TextColor="White" 
+                    Text="Temperature Sensor" 
+                    HorizontalOptions="Fill"
+                    FontSize="Medium"/>
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="Fill">
+                    <Label 
+                        TextColor="#cccccc" 
+                        Text="Value : "
+                        Margin="0, 5, 0, 0"/>
+                    <Label 
+                        x:Name="temperatureValue"
+                        TextColor="#cccccc" 
+                        Text="10.2" 
+                        HorizontalOptions="FillAndExpand"
+                        Margin="0, 5, 0, 0"/>
+                    <Label 
+                        x:Name="loadingTempIndicator"
+                        TextColor="#cccccc" 
+                        Text="Loading..." 
+                        HorizontalOptions="FillAndExpand"
+                        Margin="0, 5, 0, 0"/>
+                </StackLayout>
+            </StackLayout>
+            <Button 
+                x:Name="getTempButton"
+                Text="Get Data"  
+                BackgroundColor="#71ed9d" 
+                TextColor="#31415b"
+                FontSize="Medium"
+                Margin="0, 2, 0, 0"
+                VerticalOptions="Start"/>
+        </StackLayout>
+        <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="Fill"
+            Margin="0, 0, 0, 20">
+
+            <StackLayout
+                Orientation="Vertical"
+                HorizontalOptions="FillAndExpand">
+                <Label 
+                    TextColor="White" 
+                    Text="Ultrasonic Sensor" 
+                    HorizontalOptions="Fill"
+                    FontSize="Medium"/>
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="Fill">
+                    <Label 
+                        TextColor="#cccccc" 
+                        Text="Value : "
+                        Margin="0, 5, 0, 0"/>
+                    <Label 
+                        x:Name="ultrasonicValue"
+                        TextColor="#cccccc" 
+                        Text="" 
+                        HorizontalOptions="FillAndExpand"
+                        Margin="0, 5, 0, 0"/>
+                    <Label 
+                        x:Name="loadingUltIndicator"
+                        TextColor="#cccccc" 
+                        Text="Loading..." 
+                        HorizontalOptions="FillAndExpand"
+                        Margin="0, 5, 0, 0"/>
+                </StackLayout>
+            </StackLayout>
+            <Button 
+                x:Name="getUltrasonicButton"
+                Text="Get Data"  
+                BackgroundColor="#71ed9d" 
+                TextColor="#31415b"
+                FontSize="Medium"
+                Margin="0, 2, 0, 0"
+                VerticalOptions="Start"/>
+        </StackLayout>
+        <Button 
+            x:Name="disconectButton"
+            Text="Disconnect"  
+            BackgroundColor="#71ed9d" 
+            TextColor="#ff0000"
+            FontSize="Medium"
+            Margin="0, 10, 0, 0"
+            HorizontalOptions="Center"/>
+    </StackLayout>
+</ContentPage>
