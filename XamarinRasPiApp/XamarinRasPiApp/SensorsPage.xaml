@@ -50,7 +50,7 @@
                 Margin="0, 2, 0, 0"
                 VerticalOptions="Start"/>
         </StackLayout>
-        <StackLayout
+        <!--<StackLayout
             Orientation="Horizontal"
             HorizontalOptions="Fill"
             Margin="0, 0, 0, 20">
@@ -100,6 +100,6 @@
             TextColor="#ff0000"
             FontSize="Medium"
             Margin="0, 10, 0, 0"
-            HorizontalOptions="Center"/>
+            HorizontalOptions="Center"/>-->
     </StackLayout>
 </ContentPage>

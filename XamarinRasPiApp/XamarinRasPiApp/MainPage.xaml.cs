@@ -15,7 +15,7 @@ namespace XamarinRasPiApp
         public MainPage()
         {
             InitializeComponent();
-            addressEntry.Completed += (s, e) => portEntry.Focus();
+            addressEntry.Completed += (s, e) => continueButton.Focus();
             continueButton.Clicked += ContinueAsync;
             resetButton.Clicked += Reset;
         }
@@ -23,7 +23,7 @@ namespace XamarinRasPiApp
         async void ContinueAsync(object sender, EventArgs e)
         {
             showLoading(true);
-            string address = string.Format("http://{0}:{1}", addressEntry.Text, portEntry.Text);
+            string address = string.Format("http://{0}", addressEntry.Text);
             //DisplayAlert("Address", address, "OK");
             //Navigation.PushAsync(new PowerPage());
             //App.Current.MainPage = new PowerPage(address);
@@ -76,7 +76,7 @@ namespace XamarinRasPiApp
         void Reset(object sender, EventArgs e)
         {
             addressEntry.Text = string.Empty;
-            portEntry.Text = string.Empty;
+            // portEntry.Text = string.Empty;
 
         }
         void showLoading(bool status)

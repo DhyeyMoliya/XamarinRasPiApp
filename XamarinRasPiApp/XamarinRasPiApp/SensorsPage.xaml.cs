@@ -21,7 +21,7 @@ namespace XamarinRasPiApp
             InitializeComponent();
 
             //For Development pupose only
-            this.address = "http://192.168.0.5:5000";
+            this.address = "http://192.168.0.5";
             InitializeButtonEvents();
             GetInitialValuesAsync();
         }
@@ -37,13 +37,13 @@ namespace XamarinRasPiApp
         private void GetInitialValuesAsync()
         {
             GetTemperatureDataAsync(null, null);
-            GetUltrasonicDataAsync(null, null);
+            // GetUltrasonicDataAsync(null, null);
         }
         private void InitializeButtonEvents()
         {
             getTempButton.Clicked += GetTemperatureDataAsync;
-            getUltrasonicButton.Clicked += GetUltrasonicDataAsync;
-            disconectButton.Clicked += Disconnect;
+            // getUltrasonicButton.Clicked += GetUltrasonicDataAsync;
+            // disconectButton.Clicked += Disconnect;
         }
         private void showTempLoading(bool status)
         {
@@ -52,8 +52,8 @@ namespace XamarinRasPiApp
         }
         private void showUltLoading(bool status)
         {
-            ultrasonicValue.IsVisible = !status;
-            loadingUltIndicator.IsVisible = status;
+            // ultrasonicValue.IsVisible = !status;
+            // loadingUltIndicator.IsVisible = status;
         }
         private async void GetTemperatureDataAsync(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace XamarinRasPiApp
                 await DisplayAlert("Error", "Error getting temperature value.", "OK");
             }
         }
-        private async void GetUltrasonicDataAsync(object sender, EventArgs e)
+        /*private async void GetUltrasonicDataAsync(object sender, EventArgs e)
         {
             showUltLoading(true);
             string url = address + "/ultrasonic";
@@ -134,7 +134,7 @@ namespace XamarinRasPiApp
                 showUltLoading(false);
                 await DisplayAlert("Error", "Error getting ultrasonic value.", "OK");
             }
-        }
+        }*/
         private void Disconnect(object sender, EventArgs e)
         {
             App.Current.MainPage = new MainPage();

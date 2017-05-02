@@ -28,7 +28,7 @@
                 FontSize="Medium"
                 Text="192.168.0.5"
                 />
-            <Label 
+            <!--<Label 
                 TextColor="White" 
                 Text="PORT"
                 HorizontalOptions="StartAndExpand"
@@ -39,7 +39,7 @@
                 HorizontalOptions="FillAndExpand"
                 Keyboard="Numeric"
                 FontSize="Medium"
-                Text="5000"/>
+                Text="5000"/>-->
             <StackLayout
                 HorizontalOptions="Center"
                 Orientation="Horizontal"
