@@ -21,7 +21,7 @@ namespace XamarinRasPiApp
             InitializeComponent();
 
             //For Development pupose only
-            this.address = "http://192.168.0.5";
+            this.address = "http://raspi.azurewebsites.net/api";
             InitializeButtonEvents();
             GetInitialValuesAsync();
         }
@@ -30,7 +30,7 @@ namespace XamarinRasPiApp
             InitializeComponent();
             this.address = address;
             showTempLoading(false);
-            showUltLoading(false);
+            //showUltLoading(false);
             InitializeButtonEvents();
             GetInitialValuesAsync();
         }
@@ -47,8 +47,9 @@ namespace XamarinRasPiApp
         }
         private void showTempLoading(bool status)
         {
-            temperatureValue.IsVisible = !status;
-            loadingTempIndicator.IsVisible = status;
+            temperatureValue.IsVisible = temperatureTimeStamp.IsVisible = !status;
+            loadingTempIndicator.IsVisible = loadingTempTimeIndicator.IsVisible = status;
+            
         }
         private void showUltLoading(bool status)
         {
@@ -75,14 +76,20 @@ namespace XamarinRasPiApp
                     string str = readStream.ReadToEnd();
                     dynamic obj = JsonConvert.DeserializeObject(str);
 
-                    if (obj.value != null)
+                    if (obj.error != true)
                     {
                         showTempLoading(false);
-                        temperatureValue.Text = Convert.ToDouble(obj.value.ToString()).ToString() + " °C";
+                        temperatureValue.Text = Convert.ToDouble(obj.data.temperature.ToString()).ToString() + " °C";
+                        string timestamp = obj.data.timestamp.ToString();
+                        string date = timestamp.Split(' ')[0];
+                        string time = timestamp.Split(' ')[1].Substring(0, 8);
+                        temperatureTimeStamp.Text = time + " " + date;
                     }
                     else
                     {
                         showTempLoading(false);
+                        temperatureValue.Text = "Error.";
+                        temperatureTimeStamp.Text = "Error.";
                         await DisplayAlert("Error", "Error getting temperature value.", "OK");
                     }
 
@@ -93,6 +100,8 @@ namespace XamarinRasPiApp
             catch (Exception exc)
             {
                 showTempLoading(false);
+                temperatureValue.Text = "Error.";
+                temperatureTimeStamp.Text = "Error.";
                 await DisplayAlert("Error", "Error getting temperature value.", "OK");
             }
         }

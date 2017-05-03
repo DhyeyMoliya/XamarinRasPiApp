@@ -30,11 +30,31 @@
                     <Label 
                         x:Name="temperatureValue"
                         TextColor="#cccccc" 
-                        Text="10.2" 
+                        Text="" 
                         HorizontalOptions="FillAndExpand"
                         Margin="0, 5, 0, 0"/>
                     <Label 
                         x:Name="loadingTempIndicator"
+                        TextColor="#cccccc" 
+                        Text="Loading..." 
+                        HorizontalOptions="FillAndExpand"
+                        Margin="0, 5, 0, 0"/>
+                </StackLayout>
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="Fill">
+                    <Label 
+                        TextColor="#cccccc" 
+                        Text="At : "
+                        Margin="0, 5, 0, 0"/>
+                    <Label 
+                        x:Name="temperatureTimeStamp"
+                        TextColor="#cccccc" 
+                        Text="" 
+                        HorizontalOptions="FillAndExpand"
+                        Margin="0, 5, 0, 0"/>
+                    <Label 
+                        x:Name="loadingTempTimeIndicator"
                         TextColor="#cccccc" 
                         Text="Loading..." 
                         HorizontalOptions="FillAndExpand"
