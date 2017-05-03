@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <div id="error">
+        <span class="text-danger">Error getting data. </span><button class="btn btn-success" onclick="retry()">Retry</button>
+    </div>
+    <p><b>Temperature : </b><span id="temperature"></span></p>
+    <p><b>At Time : </b><span id="timestamp"></span></p>
+    
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $("#error").hide();
+    var count = 0;
+    var interval = setInterval(function intervalFunction(){
+        $.ajax({
+          url: "api/temperature",
+          context: document.body
+        }).done(function(res) {
+          if(res.error){
+              clearInterv();
+              $("#error").show();
+          }else{
+            $("#temperature").html(res.data.temperature + " °C");
+            $("#timestamp").html(res.data.timestamp);
+          }
+          
+        });
+    }, 500);
+    function clearInterv(){
+        clearInterval(interval);
+    }
+    function retry(){
+        $("#error").hide();        
+        interval = setInterval(function intervalFunction(){
+            $.ajax({
+              url: "api/temperature",
+              context: document.body
+            }).done(function(res) {
+              if(res.error){
+                  clearInterv();
+                  $("#error").show();
+              }else{
+                $("#temperature").html(res.data.temperature + " °C");
+                $("#timestamp").html(res.data.timestamp);
+              }
+              
+            });
+        }, 500);
+    }
+</script>
+{% endblock %}
