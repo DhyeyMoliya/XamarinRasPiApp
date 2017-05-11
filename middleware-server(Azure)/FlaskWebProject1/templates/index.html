@@ -3,11 +3,17 @@
 {% block content %}
 
 <div class="jumbotron">
-    <div id="error">
-        <span class="text-danger">Error getting data. </span><button class="btn btn-success" onclick="retry()">Retry</button>
+    <div id="tempError" style="display: none;">
+        <span class="text-danger">Error getting data. </span><button class="btn btn-success" onclick="retryTemp()">Retry</button>
     </div>
     <p><b>Temperature : </b><span id="temperature"></span></p>
-    <p><b>At Time : </b><span id="timestamp"></span></p>
+    <p><b>At Time : </b><span id="tempTimestamp"></span></p>
+    <br>
+    <div id="humError" style="display: none;">
+        <span class="text-danger">Error getting data. </span><button class="btn btn-success" onclick="retryHum()">Retry</button>
+    </div>
+    <p><b>Humidity : </b><span id="humidity"></span></p>
+    <p><b>At Time : </b><span id="humTimestamp"></span></p>
     
 </div>
 
@@ -16,39 +22,80 @@
 
 {% block scripts %}
 <script>
-    $("#error").hide();
+    $("#humError").hide();        
+    $("#tempError").hide();
     var count = 0;
-    var interval = setInterval(function intervalFunction(){
+    var tempInterval = setInterval(function intervalFunction(){
         $.ajax({
           url: "api/temperature",
           context: document.body
         }).done(function(res) {
           if(res.error){
-              clearInterv();
-              $("#error").show();
+              console.log(res);              
+              clearTempInterv();
+              $("#tempError").show();
           }else{
-            $("#temperature").html(res.data.temperature + " °C");
-            $("#timestamp").html(res.data.timestamp);
+            $("#temperature").html(res.data.value + " °C");
+            $("#tempTimestamp").html(res.data.timestamp);
           }
           
         });
     }, 500);
-    function clearInterv(){
-        clearInterval(interval);
+    function clearTempInterv(){
+        clearInterval(tempInterval);
     }
-    function retry(){
-        $("#error").hide();        
-        interval = setInterval(function intervalFunction(){
+    function retryTemp(){
+        $("#tempError").hide();        
+        tempInterval = setInterval(function intervalFunction(){
             $.ajax({
               url: "api/temperature",
               context: document.body
             }).done(function(res) {
               if(res.error){
-                  clearInterv();
-                  $("#error").show();
+                  console.log(res);
+                  clearTempInterv();
+                  $("#tempError").show();
               }else{
-                $("#temperature").html(res.data.temperature + " °C");
-                $("#timestamp").html(res.data.timestamp);
+                $("#temperature").html(res.data.value + " °C");
+                $("#tempTimestamp").html(res.data.timestamp);
+              }
+              
+            });
+        }, 500);
+    }
+    var humInterval = setInterval(function intervalFunction(){
+        $.ajax({
+          url: "api/humidity",
+          context: document.body
+        }).done(function(res) {
+          if(res.error){
+                  console.log(res);              
+              clearHumInterv();
+              $("#humError").show();
+          }else{
+            $("#humidity").html(res.data.value + " RH");
+            $("#humTimestamp").html(res.data.timestamp);
+          }
+          
+        });
+    }, 500);
+    function clearHumInterv(){
+        clearInterval(humInterval);
+    }
+    function retryHum(){
+        $("#humError").hide();        
+        humInterval = setInterval(function intervalFunction(){
+            $.ajax({
+              url: "api/humidity",
+              context: document.body
+            }).done(function(res) {
+              if(res.error){
+                  console.log(res);
+                  clearHumInterv();
+                  $("#humError").show();
+              }else{
+                $("#humidity").html(res.data.value + " RH");
+                $("#humTimestamp").html(res.data.timestamp);
               }
               
             });
