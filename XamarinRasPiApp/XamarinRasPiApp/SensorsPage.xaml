@@ -70,7 +70,69 @@
                 Margin="0, 2, 0, 0"
                 VerticalOptions="Start"/>
         </StackLayout>
-        <!--<StackLayout
+        <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="Fill"
+            Margin="0, 0, 0, 20">
+            <StackLayout
+                Orientation="Vertical"
+                HorizontalOptions="FillAndExpand">
+                <Label 
+                        TextColor="White" 
+                        Text="Humidity Sensor" 
+                        HorizontalOptions="Fill"
+                        FontSize="Medium"/>
+                <StackLayout
+                        Orientation="Horizontal"
+                        HorizontalOptions="Fill">
+                    <Label 
+                            TextColor="#cccccc" 
+                            Text="Value : "
+                            Margin="0, 5, 0, 0"/>
+                    <Label 
+                            x:Name="humidityValue"
+                            TextColor="#cccccc" 
+                            Text="" 
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0, 5, 0, 0"/>
+                    <Label 
+                            x:Name="loadingHumidityIndicator"
+                            TextColor="#cccccc" 
+                            Text="Loading..." 
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0, 5, 0, 0"/>
+                </StackLayout>
+                <StackLayout
+                        Orientation="Horizontal"
+                        HorizontalOptions="Fill">
+                    <Label 
+                            TextColor="#cccccc" 
+                            Text="At : "
+                            Margin="0, 5, 0, 0"/>
+                    <Label 
+                            x:Name="humidityTimeStamp"
+                            TextColor="#cccccc" 
+                            Text="" 
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0, 5, 0, 0"/>
+                    <Label 
+                            x:Name="loadingHumidityTimeIndicator"
+                            TextColor="#cccccc" 
+                            Text="Loading..." 
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0, 5, 0, 0"/>
+                </StackLayout>
+            </StackLayout>
+            <Button 
+                    x:Name="getHumidityButton"
+                    Text="Get Data"  
+                    BackgroundColor="#71ed9d" 
+                    TextColor="#31415b"
+                    FontSize="Medium"
+                    Margin="0, 2, 0, 0"
+                    VerticalOptions="Start"/>
+        </StackLayout>
+    <!--<StackLayout
             Orientation="Horizontal"
             HorizontalOptions="Fill"
             Margin="0, 0, 0, 20">

@@ -30,6 +30,7 @@ namespace XamarinRasPiApp
             InitializeComponent();
             this.address = address;
             showTempLoading(false);
+            showHumidityLoading(false);
             //showUltLoading(false);
             InitializeButtonEvents();
             GetInitialValuesAsync();
@@ -37,11 +38,13 @@ namespace XamarinRasPiApp
         private void GetInitialValuesAsync()
         {
             GetTemperatureDataAsync(null, null);
+            GetHumidityDataAsync(null, null);
             // GetUltrasonicDataAsync(null, null);
         }
         private void InitializeButtonEvents()
         {
             getTempButton.Clicked += GetTemperatureDataAsync;
+            getHumidityButton.Clicked += GetHumidityDataAsync;
             // getUltrasonicButton.Clicked += GetUltrasonicDataAsync;
             // disconectButton.Clicked += Disconnect;
         }
@@ -49,7 +52,12 @@ namespace XamarinRasPiApp
         {
             temperatureValue.IsVisible = temperatureTimeStamp.IsVisible = !status;
             loadingTempIndicator.IsVisible = loadingTempTimeIndicator.IsVisible = status;
-            
+        }
+
+        private void showHumidityLoading(bool status)
+        {
+            humidityValue.IsVisible = humidityTimeStamp.IsVisible = !status;
+            loadingHumidityIndicator.IsVisible = loadingHumidityTimeIndicator.IsVisible = status;
         }
         private void showUltLoading(bool status)
         {
@@ -79,7 +87,7 @@ namespace XamarinRasPiApp
                     if (obj.error != true)
                     {
                         showTempLoading(false);
-                        temperatureValue.Text = Convert.ToDouble(obj.data.temperature.ToString()).ToString() + " °C";
+                        temperatureValue.Text = Convert.ToDouble(obj.data.value.ToString()).ToString() + " °C";
                         string timestamp = obj.data.timestamp.ToString();
                         string date = timestamp.Split(' ')[0];
                         string time = timestamp.Split(' ')[1].Substring(0, 8);
@@ -103,6 +111,55 @@ namespace XamarinRasPiApp
                 temperatureValue.Text = "Error.";
                 temperatureTimeStamp.Text = "Error.";
                 await DisplayAlert("Error", "Error getting temperature value.", "OK");
+            }
+        }
+        private async void GetHumidityDataAsync(object sender, EventArgs e)
+        {
+            showHumidityLoading(true);
+            string url = address + "/humidity";
+
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                using (
+                    var response = (HttpWebResponse)(
+                        await Task<WebResponse>.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null)
+                    )
+                )
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = new StreamReader(receiveStream);
+                    string str = readStream.ReadToEnd();
+                    dynamic obj = JsonConvert.DeserializeObject(str);
+
+                    if (obj.error != true)
+                    {
+                        showHumidityLoading(false);
+                        humidityValue.Text = Convert.ToDouble(obj.data.value.ToString()).ToString() + " RH";
+                        string timestamp = obj.data.timestamp.ToString();
+                        string date = timestamp.Split(' ')[0];
+                        string time = timestamp.Split(' ')[1].Substring(0, 8);
+                        humidityTimeStamp.Text = time + " " + date;
+                    }
+                    else
+                    {
+                        showHumidityLoading(false);
+                        humidityValue.Text = "Error.";
+                        humidityTimeStamp.Text = "Error.";
+                        await DisplayAlert("Error", "Error getting humidity value.", "OK");
+                    }
+
+
+                }
+
+            }
+            catch (Exception exc)
+            {
+                showHumidityLoading(false);
+                humidityValue.Text = "Error.";
+                humidityTimeStamp.Text = "Error.";
+                await DisplayAlert("Error", "Error getting humidity value.", "OK");
             }
         }
         /*private async void GetUltrasonicDataAsync(object sender, EventArgs e)
